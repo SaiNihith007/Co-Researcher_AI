@@ -50,8 +50,8 @@ Thumbs.db
 .env
 config.ini
 
-# Outputs directory (generated files, not needed in repo)
-outputs/
+# Outputs directory - exclude generated files but keep directory structure
+outputs/*
 !outputs/.gitkeep
 
 # Cache and temporary files
@@ -59,8 +59,8 @@ outputs/
 *.cache
 temp/
 
-# Streamlit
-.streamlit/
+# Streamlit - Keep config files for deployment
+# .streamlit/ folder is NEEDED for Streamlit Cloud deployment
 
 # Reports (optional - comment out if you want to track reports)
 # reports/*.html
