@@ -111,26 +111,6 @@ OPENAI_API_KEY=your_api_key_here  # Optional - can be set in UI
 - **Years Back**: 1-10 years (default: 3)
 - **Sources**: Auto-selected based on query
 
-## Deployment
-
-### Streamlit Cloud Deployment
-1. Fork this repository
-2. Connect to [Streamlit Cloud](https://streamlit.io/cloud)
-3. Deploy directly from your GitHub repository
-4. Set secrets in Streamlit Cloud dashboard (optional)
-
-### Local Development
-```bash
-# Clone repository
-git clone https://github.com/yourusername/co-researcher-ai.git
-cd co-researcher-ai
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Run application
-streamlit run app.py --server.port 8501
-```
 
 ## File Structure
 
@@ -157,31 +137,5 @@ co-researcher-ai/
     └── vector_db/
 ```
 
-## Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Support
-
-For questions or issues:
-- Open a GitHub issue
-- Email: your-email@example.com
-- Documentation: See project wiki
-
-## Acknowledgments
-
-- OpenAI for GPT models
-- Streamlit for the web framework
-- arXiv and PubMed for research data access
-- FAISS for vector similarity search
-
----
-
-**Built with ❤️ by Sai Nihith Immaneni** 
+**Built by Sai Nihith Immaneni** 
