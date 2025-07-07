@@ -1,0 +1,46 @@
+# Co-Researcher.AI - Streamlit Cloud Requirements
+# Core Framework
+streamlit>=1.28.0
+
+# LLM and AI
+openai>=1.0.0
+sentence-transformers>=2.2.0
+
+# Research Data Sources
+arxiv>=1.4.0
+biopython>=1.81
+requests>=2.31.0
+
+# Vector Storage and Search
+faiss-cpu>=1.7.4
+langchain>=0.0.350
+
+# Data Processing
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Text Processing
+nltk>=3.8.0
+textblob>=0.17.0
+
+# PDF Processing
+PyPDF2>=3.0.0
+pdfplumber>=0.9.0
+pypdf>=3.0.0
+
+# Web Scraping and HTTP
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+requests-toolbelt>=1.0.0
+
+# Reports and Visualization
+reportlab>=4.0.0
+markdown>=3.5.0
+plotly>=5.15.0
+
+# Machine Learning
+scikit-learn>=1.3.0
+
+# Environment and Utilities
+python-dotenv>=1.0.0
+tqdm>=4.66.0 
