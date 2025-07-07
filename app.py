@@ -397,8 +397,8 @@ def run_research_pipeline(query, api_key, model, max_papers, years_back):
                 st.session_state.validated_api_key = None
             return
         
-        # Step 1: Collect papers with full content processing
-        papers = data_agent.collect_papers(query, max_papers * 4, process_full_content=True)  # Cast wider net for optimal funnel ranking
+        # Step 1: Collect papers (abstract-only for fast ranking)
+        papers = data_agent.collect_papers(query, max_papers * 3, process_full_content=False)  # Faster collection for ranking
         if not papers:
             st.warning("⚠️ No papers found for your query. Try rephrasing or using different keywords.")
             progress_bar.progress(1.0)
@@ -408,7 +408,7 @@ def run_research_pipeline(query, api_key, model, max_papers, years_back):
         status_text.text(f"📊 Ranking {len(papers)} papers by relevance...")
         progress_bar.progress(0.40)
         
-        # Step 2: Rank papers
+        # Step 2: Rank papers (using abstracts)
         try:
             ranked_papers = reranker.rank_papers(query, papers, top_k=max_papers)
         except Exception as e:
@@ -418,8 +418,22 @@ def run_research_pipeline(query, api_key, model, max_papers, years_back):
                 st.session_state.validated_api_key = None
             return
         
+        # Step 2.5: Now process full content for ONLY the top-ranked papers
+        status_text.text("📄 Processing full content for selected papers...")
+        progress_bar.progress(0.50)
+        
+        try:
+            # Process full content for the selected papers only
+            enhanced_papers = data_agent.process_full_papers(ranked_papers)
+            ranked_papers = enhanced_papers  # Replace with enhanced versions
+            logger.info(f"✅ Full content processed for {len(ranked_papers)} selected papers")
+        except Exception as e:
+            logger.warning(f"⚠️ Full content processing failed: {e}")
+            # Continue with abstract-only papers
+            pass
+        
         status_text.text("📝 Generating AI summaries...")
-        progress_bar.progress(0.60)
+        progress_bar.progress(0.65)
         
         # Step 3: Generate summaries
         summaries = []
@@ -435,7 +449,7 @@ def run_research_pipeline(query, api_key, model, max_papers, years_back):
                 summaries.append(summary)
                 
                 # Update progress
-                summary_progress = 0.60 + (0.25 * (i + 1) / len(ranked_papers))
+                summary_progress = 0.65 + (0.20 * (i + 1) / len(ranked_papers))
                 progress_bar.progress(summary_progress)
                 status_text.text(f"📝 Summarizing paper {i+1}/{len(ranked_papers)}...")
                 
@@ -459,7 +473,7 @@ def run_research_pipeline(query, api_key, model, max_papers, years_back):
                 summaries.append(fallback_summary)
         
         status_text.text("📄 Generating comprehensive report...")
-        progress_bar.progress(0.90)
+        progress_bar.progress(0.88)
         
         # Step 4: Generate report
         try:
